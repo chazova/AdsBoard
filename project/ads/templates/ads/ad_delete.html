@@ -1,0 +1,30 @@
+{% extends 'layout/base.html' %}
+
+
+{% block title %}
+Удаление объявления
+{% endblock title %}
+
+{% block content %}
+
+<h3>Удалить это объявление?</h3>
+<div class="card">
+    <div class="card-header">
+        <h3>
+            {{ ad.name }}
+        </h3>
+        <div>
+            Category: <span class="badge bg-info">{{ ad.category }}</span>
+            Title: <span class="badge bg-info">{{ ad.title }}</span>
+        </div>
+    </div>
+    <div class="card-body">
+        {{ ad.ad_text }}
+    </div>
+</div>
+<form method="POST">
+ {% csrf_token %}
+   <input class="btn btn-success" type="submit" value="Delete">
+</form>
+
+{% endblock content %}

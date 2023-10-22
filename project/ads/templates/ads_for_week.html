@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Новые объявления</h2>
+    <table class="table">
+        <tr>
+            <th scope="col">
+                Заголовок
+            </th>
+            <th scope="col">
+                Цена
+            </th>
+            <th scope="col">
+                Дата размещения
+            </th>
+        </tr>
+        {% for ad in ads %}
+            <tr>
+                <td>
+                    <a href="http://127.0.0.1:8000{% url 'ads:ad_detail' ad.id %}">
+                        {{ ad.ad_title }}
+                    </a>
+                </td>
+                <td>
+                    <p> {{ ad.price }}  &#8381; </p>
+                </td>
+                <td>
+                    {{ ad.create_time|date:'d-M-Y H:i'}}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

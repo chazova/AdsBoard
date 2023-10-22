@@ -1,0 +1,83 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block title %}
+    Отклики на мои объявления
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>
+           Страница авторизованного пользователя {{request.user.username}}
+        </h2>
+        <br>
+    </div>
+    <div class="container">
+        <h3>
+           Отклики на мои объявления
+        </h3>
+        <br>
+    </div>
+    <hr>
+    {% if replies %}
+        <form method="GET">
+           {{ filter.form }}
+           <!-- Форму от фильтров за нас сделает Django. А вот кнопку, увы, придётся делать самим -->
+           <input class="btn btn-primary" type="submit" value="Найти">
+        </form>
+        <table class="table">
+            <tr>
+                <th scope="col">
+                    Объявление
+                </th>
+                <th scope="col">
+                    Пользователь
+                </th>
+                <th scope="col">
+                    Сообщение
+                </th>
+                <th scope="col">
+                    Дата размещения
+                </th>
+                <th scope="col">
+                    Статус
+                </th>
+                <th scope="col">
+                    Действия
+                </th>
+            </tr>
+
+        {% for reply in replies %} <!-- Для каждого товара будет генерироваться новая строчка, т. е. новый HTML-код. При этом сам цикл работает точно так же, как и в python. product -- переменная цикла, т. е. наш товар, взятый из общего списка -->
+            <tr>
+                <td>
+                    <a href="{% url 'ads:ad_detail' reply.ad.id %}">
+                        {{ reply.ad }} <!-- Не забываем, что переменные в шаблоне ничем не отличаются от переменных в Python. Здесь также можно получать доступ к полям класса. Например, здесь мы выводим имя, в следующем столбце описание и т.д.  -->
+                    </a>
+                </td>
+                <td>
+                    {{ reply.user.username }}
+                </td>
+                <td>
+                    {{ reply.reply_text }}
+                </td>
+                <td>
+                    {{ reply.create_time }}
+                </td>
+                <td>
+                    {{ reply.get_is_confirm_display }}
+                </td>
+                <td>
+                    <a href="{% url 'ads:confirm_reply' reply.id %}">
+                        Принять
+                    </a>
+                    <a href="{% url 'ads:delete_reply' reply.id %}">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h2>Откликов нет!</h2>
+    {% endif %}
+{% endblock content %}

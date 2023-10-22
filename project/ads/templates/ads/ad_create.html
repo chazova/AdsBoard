@@ -1,0 +1,22 @@
+{% extends 'layout/base.html' %}
+
+
+{% block title %}
+Новое объявление
+{% endblock title %}
+
+{% block content %}
+
+<br>
+<h3>Объявление</h3>
+
+<form method="POST">
+ {% csrf_token %}
+ {{ form }}
+   <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <br>
+   <input class="btn btn-success" type="submit" value="Разместить">
+</form>
+<br>
+
+{% endblock content %}

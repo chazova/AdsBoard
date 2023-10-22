@@ -1,0 +1,77 @@
+{% extends 'layout/base.html' %}
+{% load embed_video_tags %}
+
+
+{% block title %}
+    Объявление
+{% endblock title %}
+
+{% block content %}
+    <br>
+    <br>
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h3 class="featurette-heading fw-normal lh-1">{{ ad.ad_title }}</h3>
+        <br>
+        <p class="lead">{{ ad.ad_text }}</p>
+        <br>
+        <h2 class="featurette-heading fw-normal lh-1">{{ ad.price }} &#8381;</h2>
+        <br>
+        <a href="{% url 'ads:reply_create' ad.id %}" class="btn btn-primary">Написать продавцу</a>
+      </div>
+      <div class="col-md-5 order-md-1">
+          {% if ad.filtered_image_set %}
+                <div id="carouselExample" class="carousel slide">
+                  <div class="carousel-inner">
+                        {% for image in ad.filtered_image_set %}
+                            <div class="carousel-item active">
+                              <img src="{{ image.image.url }}" class="d-block w-100" width="100%" height="100%">
+                            </div>
+                        {% endfor %}
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Предыдущий</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Следующий</span>
+                  </button>
+                </div>
+          {% else %}
+                <img src="{{ MEDIA_URL }}images/default.jpg" class="d-block w-100" width="100%" height="100%">
+          {% endif %}
+      </div>
+    </div>
+    <br>
+    <div>
+        {% if ad.filtered_image_set %}
+            <hr>
+            <p>Все картинки:</p>
+            <hr>
+            {% for image in ad.filtered_image_set %}
+                <div>
+                  <img src="{{ image.image.url }}" class="d-block w-100" width="100%" height="100%">
+                </div>
+                <br>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+    <br>
+    <div>
+        {% if videos %}
+            <hr>
+            <p>Все видео:</p>
+            <hr>
+            {% for video in videos %}
+                <div>
+                  {% video video.embed_video %}
+                </div>
+                <br>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+    <br>
+{% endblock content %}

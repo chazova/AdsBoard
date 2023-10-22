@@ -1,0 +1,24 @@
+{% extends 'layout/base.html' %}
+
+
+{% block title %}
+Отклик
+{% endblock title %}
+
+{% block content %}
+
+<br>
+<h3>Отклик</h3>
+
+<p>Напишите автору объявления. Как только автор примет Ваш отклик, Вам придет сообщение с e-mail автора для дальнейшей связи.</p>
+
+<form method="POST">
+ {% csrf_token %}
+ {{ form }}
+   <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <br>
+   <input class="btn btn-success" type="submit" value="Отправить">
+</form>
+<br>
+
+{% endblock content %}

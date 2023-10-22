@@ -1,0 +1,22 @@
+{% extends 'layout/base.html' %}
+
+
+{% block title %}
+Добавить видео из Youtube
+{% endblock title %}
+
+{% block content %}
+
+<br>
+<h3>Добавить видео из Youtube</h3>
+
+<form method="POST" action='{{ action_url }}' enctype='multipart/form-data'>
+ {% csrf_token %}
+ {{ form }}
+   <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <br>
+   <input class="btn btn-success" type="submit" value="Добавить">
+</form>
+<br>
+
+{% endblock content %}
